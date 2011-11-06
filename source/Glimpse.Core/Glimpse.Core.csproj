@@ -88,6 +88,7 @@
     <Compile Include="Extensibility\IGlimpseFactory.cs" />
     <Compile Include="Extensibility\IGlimpseLogger.cs" />
     <Compile Include="Extensibility\IGlimpseMetadataStore.cs" />
+    <Compile Include="Extensibility\IGlimpseService.cs" />
     <Compile Include="Extensibility\IGlimpseWarning.cs" />
     <Compile Include="Extensibility\IGlimpseHandler.cs" />
     <Compile Include="Extensibility\IProvideGlimpseHelp.cs" />
