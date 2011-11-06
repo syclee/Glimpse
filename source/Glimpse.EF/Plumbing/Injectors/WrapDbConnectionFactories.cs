@@ -6,6 +6,7 @@ using System.Data.Common;
 using System.IO;
 using System.Linq;
 using System.Reflection;
+using Glimpse.Ado.Plumbing;
 using Glimpse.Core.Extensibility;
 using Microsoft.CSharp;
 
@@ -28,11 +29,11 @@ namespace Glimpse.EF.Plumbing.Injectors
             {
                 Logger.Info("AdoPipelineInitiator: Starting to inject ConnectionFactory");
 
-                var code = GetEmbeddedResource("Glimpse.EF.Plumbing.Profiler.GlimpseProfileDbConnectionFactory.cs");
-                var assembliesToReference = new[] { type.Assembly, typeof(DbConnection).Assembly, typeof(AdoPipelineInitiator).Assembly, typeof(TypeConverter).Assembly };
+                var code = GetEmbeddedResource(typeof(ProviderStats).Assembly, "Glimpse.Ado.Plumbing.Profiler.GlimpseProfileDbConnectionFactory.cs");
+                var assembliesToReference = new[] { type.Assembly, typeof(DbConnection).Assembly, typeof(TypeConverter).Assembly, typeof(ProviderStats).Assembly };
 
                 var generatedAssembly = CreateAssembly(code, assembliesToReference);
-                var generatedType = generatedAssembly.GetType("Glimpse.EF.Plumbing.Profiler.GlimpseProfileDbProviderFactory");
+                var generatedType = generatedAssembly.GetType("Glimpse.Ado.Plumbing.Profiler.GlimpseProfileDbProviderFactory");
                 generatedType.GetMethod("Initialize").Invoke(null, null);
 
                 Logger.Info("AdoPipelineInitiator: Finished to inject ConnectionFactory");
@@ -56,10 +57,10 @@ namespace Glimpse.EF.Plumbing.Injectors
             return results.CompiledAssembly;
         }
 
-        private static string GetEmbeddedResource(string resourceName)
+        private static string GetEmbeddedResource(Assembly assembly, string resourceName)
         {
             //See http://stackoverflow.com/questions/3314140/how-to-read-embedded-resource-text-file
-            using (var stream = Assembly.GetExecutingAssembly().GetManifestResourceStream(resourceName))
+            using (var stream = assembly.GetManifestResourceStream(resourceName))
             using (var reader = new StreamReader(stream))
             {
                 return reader.ReadToEnd();

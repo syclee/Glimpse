@@ -77,6 +77,18 @@
       <Name>Glimpse.Core</Name>
     </ProjectReference>
   </ItemGroup>
+  <ItemGroup>
+    <Content Include="NuSpec\content\App_Readme\glimpse.ado.readme.txt" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="NuSpec\Glimpse.Ado.nuspec">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="NuSpec\tools\install.ps1" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="NuSpec\lib\net40\" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

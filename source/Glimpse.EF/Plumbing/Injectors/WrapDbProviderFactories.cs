@@ -4,9 +4,8 @@ using System.Data;
 using System.Data.Common;
 using System.Linq;
 using System.Reflection;
-using System.Text;
+using Glimpse.Ado.Plumbing.Profiler;
 using Glimpse.Core.Extensibility;
-using Glimpse.EF.Plumbing.Profiler;
 
 namespace Glimpse.EF.Plumbing.Injectors
 {
