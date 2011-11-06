@@ -1,5 +1,4 @@
-﻿using System.Collections.Generic;
-using System.ComponentModel.Composition;
+﻿using System.ComponentModel.Composition;
 using Glimpse.Core.Extensibility;
 using Glimpse.EF.Plumbing.Injectors;
 
@@ -9,21 +8,11 @@ namespace Glimpse.EF.Service
     internal class EF : IGlimpseService
     {
         private IGlimpseLogger Logger { get; set; }
-        private IList<IWrapperInjectorProvider> Providers { get; set; }
         
         [ImportingConstructor]
         public EF(IGlimpseFactory factory)
         {
             Logger = factory.CreateLogger();
-
-            //Note order of execution is important.
-            Providers = new List<IWrapperInjectorProvider>
-                            {
-                                new WrapDbProviderFactories(Logger),
-                                new WrapDbConnectionFactories(Logger),
-                                new WrapCachedMetadata(Logger)
-                            };
-
         }
 
         public string Name
@@ -33,12 +22,18 @@ namespace Glimpse.EF.Service
 
         public void SetupInit()
         {
-            Logger.Info("AdoPipelineInitiator: Starting");
+            Logger.Info("AdoPipelineInitiator for EF: Starting");
 
-            foreach (var provider in Providers)
-                provider.Inject();
+            var wrapDbProviderFactories = new WrapDbProviderFactories(Logger);
+            wrapDbProviderFactories.Inject();
 
-            Logger.Info("AdoPipelineInitiator: Finished");
+            var wrapDbConnectionFactories = new WrapDbConnectionFactories(Logger);
+            wrapDbConnectionFactories.Inject();
+
+            var wrapCachedMetadata = new WrapCachedMetadata(Logger);
+            wrapCachedMetadata.Inject();
+
+            Logger.Info("AdoPipelineInitiator for EF: Finished");
         }
     }
 }

@@ -9,7 +9,7 @@ using System.Text;
 
 namespace Glimpse.Ado.Plumbing.Profiler
 {
-    internal class GlimpseProfileDbCommand : DbCommand
+    public class GlimpseProfileDbCommand : DbCommand
     {
         public GlimpseProfileDbCommand(DbCommand innerCommand, ProviderStats stats)
         {

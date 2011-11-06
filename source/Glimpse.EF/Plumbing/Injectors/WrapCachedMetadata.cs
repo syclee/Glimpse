@@ -7,7 +7,7 @@ using Glimpse.Core.Extensibility;
 
 namespace Glimpse.EF.Plumbing.Injectors
 {
-    public class WrapCachedMetadata : IWrapperInjectorProvider
+    public class WrapCachedMetadata
     {
         private IGlimpseLogger Logger { get; set; }
 

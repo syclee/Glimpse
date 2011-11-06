@@ -42,7 +42,6 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Service\EF.cs" />
-    <Compile Include="Plumbing\Injectors\IWrapperInjectorProvider.cs" />
     <Compile Include="Plumbing\Injectors\WrapCachedMetadata.cs" />
     <Compile Include="Plumbing\Injectors\WrapDbConnectionFactories.cs" />
     <Compile Include="Plumbing\Injectors\WrapDbProviderFactories.cs" />

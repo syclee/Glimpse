@@ -12,7 +12,7 @@ using Microsoft.CSharp;
 
 namespace Glimpse.EF.Plumbing.Injectors
 {
-    public class WrapDbConnectionFactories : IWrapperInjectorProvider
+    public class WrapDbConnectionFactories
     {
         private IGlimpseLogger Logger { get; set; }
 
@@ -27,7 +27,7 @@ namespace Glimpse.EF.Plumbing.Injectors
             var type = Type.GetType("System.Data.Entity.Database, EntityFramework", false);
             if (type != null && type.GetProperty("DefaultConnectionFactory") != null)
             {
-                Logger.Info("AdoPipelineInitiator: Starting to inject ConnectionFactory");
+                Logger.Info("AdoPipelineInitiator for EF: Starting to inject ConnectionFactory");
 
                 var code = GetEmbeddedResource(typeof(ProviderStats).Assembly, "Glimpse.Ado.Plumbing.Profiler.GlimpseProfileDbConnectionFactory.cs");
                 var assembliesToReference = new[] { type.Assembly, typeof(DbConnection).Assembly, typeof(TypeConverter).Assembly, typeof(ProviderStats).Assembly };
@@ -36,10 +36,10 @@ namespace Glimpse.EF.Plumbing.Injectors
                 var generatedType = generatedAssembly.GetType("Glimpse.Ado.Plumbing.Profiler.GlimpseProfileDbProviderFactory");
                 generatedType.GetMethod("Initialize").Invoke(null, null);
 
-                Logger.Info("AdoPipelineInitiator: Finished to inject ConnectionFactory");
+                Logger.Info("AdoPipelineInitiator for EF: Finished to inject ConnectionFactory");
             }
 
-            Logger.Info("AdoPipelineInitiator: Finished trying to injecting DbConnectionFactory");
+            Logger.Info("AdoPipelineInitiator for EF: Finished trying to injecting DbConnectionFactory");
         }
 
         public static Assembly CreateAssembly(string code, IEnumerable<Assembly> referenceAssemblies)
