@@ -47,5 +47,10 @@ namespace Glimpse.Core.Plumbing
                 OutputStream.Write(buffer, offset, count);
             }
         }
+        
+        public override void Flush()
+        {
+            OutputStream.Flush();
+        }
     }
 }
