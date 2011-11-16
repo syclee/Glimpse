@@ -1,4 +1,4 @@
-Glimpse.EF adds one Glimpse plugins: SQL!
+Glimpse.EF adds one Glimpse plugin: SQL!
 
 The SQL tab shows every SQL statement ran by EF against your database, along with SQL connection, timings, records effected, and parameters.
 

@@ -39,7 +39,7 @@ namespace Glimpse.EF.Plumbing.Injectors
                 }
             }
 
-            Logger.Info("AdoPipelineInitiator: Finished trying to injecting WrapCachedMetadata");
+            Logger.Info("AdoPipelineInitiator for EF: Finished trying to injecting WrapCachedMetadata");
         }
 
 

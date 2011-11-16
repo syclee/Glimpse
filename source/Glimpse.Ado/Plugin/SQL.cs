@@ -38,6 +38,9 @@ namespace Glimpse.Ado.Plugin
             var connections = new List<object[]> { new[] { "Commands per Connection", "Open Time" } }; 
             foreach (var connection in queryMetadata.Connections.Values)
             {
+                if (connection.Commands.Count == 0 && connection.Transactions.Count == 0)
+                    continue;
+                
                 var commands = new List<object[]> { new[] { "Transaction Start", "Ordinal", "Command", "Parameters", "Records", "Command Time", "From First", "Transaction End", "Errors" } };
                 var commandCount = 1;
                 foreach (var command in connection.Commands.Values)
@@ -82,7 +85,7 @@ namespace Glimpse.Ado.Plugin
                 connections.Add(new object[] { commands, elapse });
             }
 
-            return connections;
+            return connections.Count > 1 ? connections : null;
         }
 
         public void SetupInit()

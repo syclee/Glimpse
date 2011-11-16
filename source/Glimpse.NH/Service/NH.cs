@@ -22,12 +22,12 @@ namespace Glimpse.NH.Service
 
         public void SetupInit()
         {
-            Logger.Info("AdoPipelineInitiator: Starting");
+            Logger.Info("AdoPipelineInitiator for NH: Starting");
 
             var wrapDbDriver = new WrapDbDriver(Logger);
             wrapDbDriver.Inject();
 
-            Logger.Info("AdoPipelineInitiator: Finished");
+            Logger.Info("AdoPipelineInitiator for NH: Finished");
         }
     }
 }

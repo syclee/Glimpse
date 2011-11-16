@@ -12,7 +12,7 @@ using NHibernate.SqlTypes;
 
 namespace Glimpse.Nh.Plumbing.Profiler
 {
-    public class GlimpseDriver<TInnerDriver> : IDriver, IEmbeddedBatcherFactoryProvider, ISqlParameterFormatter
+    public class GlimpseProfileDbDriver<TInnerDriver> : IDriver, IEmbeddedBatcherFactoryProvider, ISqlParameterFormatter
         where TInnerDriver : IDriver, new()
     {
         private TInnerDriver _innerDriver;
