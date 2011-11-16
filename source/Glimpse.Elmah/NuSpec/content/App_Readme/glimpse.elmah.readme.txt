@@ -17,6 +17,11 @@ Steven Lauwers
 
 Release Notes
 -------------
+11/09/2011 - 0.9.7.0
+- Updated to version 0.86 of Glimpse
+- Use build-in paging support of Glimpse
+- Removed the client helper
+
 10/23/2011 - 0.9.6.0
 - Fixed bug when parsing an invalid guid
 - Updated to version 0.85 of Glimpse
