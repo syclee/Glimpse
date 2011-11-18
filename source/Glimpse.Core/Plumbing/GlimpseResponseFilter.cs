@@ -7,7 +7,6 @@ using Glimpse.Core.Extensions;
 
 namespace Glimpse.Core.Plumbing
 {
-    //Heavily influenced by http://www.4guysfromrolla.com/articles/120308-1.aspx
     public class GlimpseResponseFilter : Stream
     {
         internal Stream OutputStream { get; set; }
@@ -24,7 +23,8 @@ namespace Glimpse.Core.Plumbing
         public override void Write(byte[] buffer, int offset, int count)
         {
             // Convert the content in buffer to a string
-            string contentInBuffer = UTF8Encoding.UTF8.GetString(buffer);
+            var encoding = Context.Response.ContentEncoding;
+            string contentInBuffer = encoding.GetString(buffer);
             // Buffer content in responseContent until we reach the end of the page's markup
 
             if (bodyEnd.IsMatch(contentInBuffer) && Context.GetGlimpseMode() == GlimpseMode.On)
@@ -38,7 +38,7 @@ namespace Glimpse.Core.Plumbing
                 string bodyCloseWithScript = bodyEnd.Replace(contentInBuffer,html);
 
                 // Write content to the outputStream
-                byte[] outputBuffer = UTF8Encoding.UTF8.GetBytes(bodyCloseWithScript);
+                byte[] outputBuffer = encoding.GetBytes(bodyCloseWithScript);
 
                 OutputStream.Write(outputBuffer, 0, outputBuffer.Length);
             }
