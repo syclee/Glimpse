@@ -41,6 +41,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <EmbeddedResource Include="Plumbing\Profiler\GlimpseProfileDbConnectionFactory.cs" />
     <Compile Include="Service\EF.cs" />
     <Compile Include="Plumbing\Injectors\WrapCachedMetadata.cs" />
     <Compile Include="Plumbing\Injectors\WrapDbConnectionFactories.cs" />

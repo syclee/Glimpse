@@ -13,13 +13,25 @@ using NHibernate.SqlTypes;
 namespace Glimpse.Nh.Plumbing.Profiler
 {
     public class GlimpseProfileDbDriver<TInnerDriver> : IDriver, IEmbeddedBatcherFactoryProvider, ISqlParameterFormatter
-        where TInnerDriver : IDriver, new()
+        where TInnerDriver : class, IDriver, new()
     {
-        private TInnerDriver _innerDriver;
+        private readonly TInnerDriver _innerDriver;
+
+        public GlimpseProfileDbDriver()
+            : this(new TInnerDriver())
+        {
+        }
+
+        public GlimpseProfileDbDriver(TInnerDriver innerDriver)
+        {
+            if (innerDriver == null)
+                throw new ArgumentNullException("innerDriver");
+
+            _innerDriver = innerDriver;
+        }
 
         public void Configure(IDictionary<string, string> settings)
         {
-            _innerDriver = new TInnerDriver();
             _innerDriver.Configure(settings);
         }
 

@@ -3,7 +3,7 @@
     <!-- Values in dollar $igns are automatically pulled from the AssemblyInfo.cs attributes by NuGet.exe -->
     <metadata>
         <id>Glimpse.Ado</id>
-        <version>0.86</version>
+        <version>0.87</version>
         <title>Glimpse for ADO (Beta)</title>
         <authors>nmolnar, avanderhoorn</authors>
         <owners>nmolnar, avanderhoorn</owners>
@@ -15,7 +15,7 @@
         <summary></summary>
         <tags>MVC MVC3 ASP.NET Web ADO SQL</tags>
         <dependencies>
-            <dependency id="Glimpse" version="[0.86]" />
+            <dependency id="Glimpse" version="[0.87]" />
         </dependencies>
     </metadata>
 </package>

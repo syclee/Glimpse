@@ -8,6 +8,9 @@ See glimpse.readme.txt or http://getglimpse.com for more info
 
 Release Notes
 -------------
+11/21/2011 - 0.87
+- Update dependency on Glimpse 0.87
+
 11/01/2011 - 0.86
 - First release on Nuget.org!
 

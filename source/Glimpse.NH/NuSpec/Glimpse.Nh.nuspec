@@ -15,8 +15,8 @@
         <summary>Glimpse plugin pack providing features useful when using the NHibernate object-relational mapper.</summary>
         <tags>MVC MVC3 ASP.NET Web NHibernate NH</tags>
         <dependencies>
-            <dependency id="Glimpse" version="[0.86]" />
-            <dependency id="Glimpse.Ado" version="[0.86]" />
+            <dependency id="Glimpse" version="[0.87]" />
+            <dependency id="Glimpse.Ado" version="[0.87]" />
         </dependencies>
     </metadata>
 </package>
