@@ -108,7 +108,7 @@
             panel.find('.glimpse-head-message').fadeOut();
             panel.find('.selected').removeClass('selected');
              
-            glimpse.data.retrieve(currentId);
+            glimpse.data.retrieve(currentId, '');
         },
         
         selected = function (item) {
@@ -119,7 +119,7 @@
             request(requestId);
         },
         request = function (requestId) { 
-            glimpse.data.retrieve(requestId, {
+            glimpse.data.retrieve(requestId, 'Ajax', {
                 success : function (requestId) { process(requestId); }
             });
         },

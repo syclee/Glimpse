@@ -99,6 +99,9 @@
     display: inline-block;
     height: 20px;
 }
+.glimpse-title .glimpse-snapshot-path {
+    font-weight:normal;
+}
 .glimpse-title .glimpse-enviro {
     padding-left: 10px;
     white-space: nowrap;

@@ -1,18 +1,26 @@
 ﻿data = (function () {
     var //Support
         inner = {}, 
+        types = [],
         base = {},
     
         //Main 
         update = function (data) {
-            inner = data; 
-
+            inner = data;  
             pubsub.publish('action.data.update');
         },
         reset = function () {
+            types = [];
             update(base);
         },
-        retrieve = function (requestId, callback) { 
+        retrieve = function (requestId, type, callback) { 
+            if (type) {
+                if (types.length == 0 || types[types.length - 1] != type)
+                    types.push(type);
+            }
+            else
+                types.pop();   
+
             if (callback && callback.start)
                 callback.start(requestId);
 
@@ -41,6 +49,9 @@
         current = function () {
             return inner;
         },
+        currentTypes = function () {
+            return types
+        },
         currentMetadata = function () {
             return inner.metadata;
         },
@@ -54,6 +65,7 @@
     
     return { 
         current : current,
+        currentTypes : currentTypes,
         currentMetadata : currentMetadata,
         update : update,
         retrieve : retrieve,

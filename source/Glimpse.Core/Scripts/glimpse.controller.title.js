@@ -64,14 +64,30 @@
             }
             return html;
         },
+        buildTypes = function (types) {
+            var html = '',
+                prefix = '';
+            for (var i = 0; i < types.length; i++) {
+                html += prefix + types[i];
+                prefix = ' > ';
+            }
+            if (html) 
+                html = ' <span class="glimpse-snapshot-path">(' + html + ')</span>';
+            return html;
+        },
+        buildName = function (name) {
+            if (name)
+                return '"' + name + '"';
+            return name;
+        },
         
         //Main
         setup = function () { 
             var request = data.current(),
                 requestMetadata = data.currentMetadata(),
-                type = ''; //((type.length > 0) ? ' (' + type + ')' : '')
+                types = data.currentTypes(); 
             
-            elements.title.find('.glimpse-snapshot-type').text(request.clientName + type).append('&nbsp;');
+            elements.title.find('.glimpse-snapshot-type').text(buildName(request.clientName)).append(buildTypes(types)).append('&nbsp;');
             elements.title.find('.glimpse-enviro').html(buildEnvironment(requestMetadata));
             elements.title.find('.glimpse-url').html(buildCorrelation(request, requestMetadata));
 
