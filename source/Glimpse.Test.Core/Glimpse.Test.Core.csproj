@@ -52,6 +52,7 @@
     <Reference Include="System.Web" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Plugin\Assist\GlimpseColumnTest.cs" />
     <Compile Include="Plugin\Assist\GlimpseRowTest.cs" />
     <Compile Include="Plugin\Assist\GlimpseSectionTest.cs" />
     <Compile Include="IpAddressValidatorTest.cs" />
