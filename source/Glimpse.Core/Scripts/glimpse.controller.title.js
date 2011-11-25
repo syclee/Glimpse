@@ -20,7 +20,8 @@
             start : function () { elements.title.find('.glimpse-url .loading').fadeIn(); }, 
             complete : function () { elements.title.find('.glimpse-url .loading').fadeOut(); }
         },
-        switchContext = function (requestId) {
+        switchContext = function (requestId) { 
+            glimpse.pubsub.publish('action.data.context.rest');
             data.retrieve(requestId, switchContextFunc);
         },
         buildEnvironment = function (requestMetadata) {
