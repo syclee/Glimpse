@@ -158,7 +158,7 @@
             request(requestId);
         },
         request = function (requestId) { 
-            glimpse.data.retrieve(requestId, 'History', {
+            glimpse.data.retrieve(requestId, {
                 success : function () {
                     process(requestId);
                 }

@@ -313,8 +313,7 @@ var glimpse = (function ($, scope) {
         } (),
         data = (function () {
             var //Support
-                inner = {}, 
-                types = [],
+                inner = {},  
                 base = {},
             
                 //Main 
@@ -323,17 +322,9 @@ var glimpse = (function ($, scope) {
                     pubsub.publish('action.data.update');
                 },
                 reset = function () {
-                    types = [];
                     update(base);
                 },
-                retrieve = function (requestId, type, callback) { 
-                    if (type) {
-                        if (types.length == 0 || types[types.length - 1] != type)
-                            types.push(type);
-                    }
-                    else
-                        types.pop();   
-        
+                retrieve = function (requestId, callback) { 
                     if (callback && callback.start)
                         callback.start(requestId);
         
@@ -361,10 +352,7 @@ var glimpse = (function ($, scope) {
         
                 current = function () {
                     return inner;
-                },
-                currentTypes = function () {
-                    return types
-                },
+                }, 
                 currentMetadata = function () {
                     return inner.metadata;
                 },
@@ -377,8 +365,7 @@ var glimpse = (function ($, scope) {
             init(); 
             
             return { 
-                current : current,
-                currentTypes : currentTypes,
+                current : current, 
                 currentMetadata : currentMetadata,
                 update : update,
                 retrieve : retrieve,
@@ -838,15 +825,24 @@ var glimpse = (function ($, scope) {
                     return html;
                 },
                 buildTypes = function (types) {
-                    var html = '',
-                        prefix = '';
-                    for (var i = 0; i < types.length; i++) {
-                        html += prefix + types[i];
-                        prefix = ' > ';
+                    var payload = data.current(),
+                        ajax = payload.isAjax && payload.requestId,
+                        history = (payload.isAjax && glimpseData.requestId != payload.parentId && payload.parentId) || (glimpseData.requestId != payload.requestId && payload.requestId),
+                        home = glimpseData.requestId,
+                        html = '';
+                    
+                    if (ajax)
+                        html = ' &gt; Ajax';
+                    if (history) {
+                        if (html) 
+                            html = ' &gt; <a data-glimpseId="' + history + '">History</a>' + html;
+                        else
+                            html = ' &gt; History';    
                     }
-                    if (html) 
-                        html = ' <span class="glimpse-snapshot-path">(' + html + ')</span>';
-                    return html;
+                    if (html)
+                        html = ' <span class="glimpse-snapshot-path">(<a data-glimpseId="' + home + '">Home</a>' + html + ')</span>';
+        
+                     return html; 
                 },
                 buildName = function (name) {
                     if (name)
@@ -857,10 +853,9 @@ var glimpse = (function ($, scope) {
                 //Main
                 setup = function () { 
                     var request = data.current(),
-                        requestMetadata = data.currentMetadata(),
-                        types = data.currentTypes(); 
+                        requestMetadata = data.currentMetadata(); 
                     
-                    elements.title.find('.glimpse-snapshot-type').text(buildName(request.clientName)).append(buildTypes(types)).append('&nbsp;');
+                    elements.title.find('.glimpse-snapshot-type').text(buildName(request.clientName)).append(buildTypes()).append('&nbsp;');
                     elements.title.find('.glimpse-enviro').html(buildEnvironment(requestMetadata));
                     elements.title.find('.glimpse-url').html(buildCorrelation(request, requestMetadata));
         
@@ -1759,7 +1754,7 @@ var glimpseAjaxPlugin = (function ($, glimpse) {
             panel.find('.glimpse-head-message').fadeOut();
             panel.find('.selected').removeClass('selected');
              
-            glimpse.data.retrieve(currentId, '');
+            glimpse.data.retrieve(currentId);
         },
         
         selected = function (item) {
@@ -1770,7 +1765,7 @@ var glimpseAjaxPlugin = (function ($, glimpse) {
             request(requestId);
         },
         request = function (requestId) { 
-            glimpse.data.retrieve(requestId, 'Ajax', {
+            glimpse.data.retrieve(requestId, {
                 success : function (requestId) { process(requestId); }
             });
         },
@@ -1952,7 +1947,7 @@ var glimpseHistoryPlugin = (function ($, glimpse) {
             request(requestId);
         },
         request = function (requestId) { 
-            glimpse.data.retrieve(requestId, 'History', {
+            glimpse.data.retrieve(requestId, {
                 success : function () {
                     process(requestId);
                 }

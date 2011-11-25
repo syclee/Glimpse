@@ -65,15 +65,24 @@
             return html;
         },
         buildTypes = function (types) {
-            var html = '',
-                prefix = '';
-            for (var i = 0; i < types.length; i++) {
-                html += prefix + types[i];
-                prefix = ' > ';
+            var payload = data.current(),
+                ajax = payload.isAjax && payload.requestId,
+                history = (payload.isAjax && glimpseData.requestId != payload.parentId && payload.parentId) || (glimpseData.requestId != payload.requestId && payload.requestId),
+                home = glimpseData.requestId,
+                html = '';
+            
+            if (ajax)
+                html = ' &gt; Ajax';
+            if (history) {
+                if (html) 
+                    html = ' &gt; <a data-glimpseId="' + history + '">History</a>' + html;
+                else
+                    html = ' &gt; History';    
             }
-            if (html) 
-                html = ' <span class="glimpse-snapshot-path">(' + html + ')</span>';
-            return html;
+            if (html)
+                html = ' <span class="glimpse-snapshot-path">(<a data-glimpseId="' + home + '">Home</a>' + html + ')</span>';
+
+             return html; 
         },
         buildName = function (name) {
             if (name)
@@ -84,10 +93,9 @@
         //Main
         setup = function () { 
             var request = data.current(),
-                requestMetadata = data.currentMetadata(),
-                types = data.currentTypes(); 
+                requestMetadata = data.currentMetadata(); 
             
-            elements.title.find('.glimpse-snapshot-type').text(buildName(request.clientName)).append(buildTypes(types)).append('&nbsp;');
+            elements.title.find('.glimpse-snapshot-type').text(buildName(request.clientName)).append(buildTypes()).append('&nbsp;');
             elements.title.find('.glimpse-enviro').html(buildEnvironment(requestMetadata));
             elements.title.find('.glimpse-url').html(buildCorrelation(request, requestMetadata));
 
