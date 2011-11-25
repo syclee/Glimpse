@@ -102,6 +102,9 @@
 .glimpse-title .glimpse-snapshot-path {
     font-weight:normal;
 }
+.glimpse-title .glimpse-snapshot-path a {
+    cursor: pointer;
+}
 .glimpse-title .glimpse-enviro {
     padding-left: 10px;
     white-space: nowrap;

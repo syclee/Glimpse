@@ -6,6 +6,7 @@
         },
         wireDomListeners = function() {
             elements.title.find('.glimpse-url a').live('click', function() { switchContext($(this).attr('data-requestId')); return false; });
+            elements.title.find('.glimpse-snapshot-path a').live('click', function() { switchContext($(this).attr('data-requestId')); return false; });
         }, 
         dropFunction = function (scope) { 
             scope.find('.glimpse-drop').mouseenter(function() { 
@@ -75,12 +76,12 @@
                 html = ' &gt; Ajax';
             if (history) {
                 if (html) 
-                    html = ' &gt; <a data-glimpseId="' + history + '">History</a>' + html;
+                    html = ' &gt; <a data-requestId="' + history + '">History</a>' + html;
                 else
                     html = ' &gt; History';    
             }
             if (html)
-                html = ' <span class="glimpse-snapshot-path">(<a data-glimpseId="' + home + '">Home</a>' + html + ')</span>';
+                html = ' <span class="glimpse-snapshot-path">(<a data-requestId="' + home + '">Home</a>' + html + ')</span>';
 
              return html; 
         },
