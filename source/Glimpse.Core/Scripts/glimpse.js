@@ -827,7 +827,7 @@ var glimpse = (function ($, scope) {
                 buildTypes = function (types) {
                     var payload = data.current(),
                         ajax = payload.isAjax && payload.requestId,
-                        history = (payload.isAjax && glimpseData.requestId != payload.parentId && payload.parentId) || (glimpseData.requestId != payload.requestId && payload.requestId),
+                        history = (payload.isAjax && glimpseData.requestId != payload.parentId && payload.parentId) || (!payload.isAjax && glimpseData.requestId != payload.requestId && payload.requestId),
                         home = glimpseData.requestId,
                         html = '';
                     
