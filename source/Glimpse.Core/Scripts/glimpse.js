@@ -781,7 +781,7 @@ var glimpse = (function ($, scope) {
                     complete : function () { elements.title.find('.glimpse-url .loading').fadeOut(); }
                 },
                 switchContext = function (requestId) { 
-                    glimpse.pubsub.publish('action.data.context.rest');
+                    glimpse.pubsub.publish('action.data.context.reset', 'Title');
                     data.retrieve(requestId, switchContextFunc);
                 },
                 buildEnvironment = function (requestMetadata) {
@@ -1661,7 +1661,7 @@ var glimpseAjaxPlugin = (function ($, glimpse) {
             glimpse.pubsub.subscribe('action.data.applied', contextChanged);
             glimpse.pubsub.subscribe('action.plugin.deactive', function (topic, payload) { if (payload == 'Ajax') { deactive(); } }); 
             glimpse.pubsub.subscribe('action.plugin.active', function (topic, payload) {  if (payload == 'Ajax') { active(); } }); 
-            glimpse.pubsub.subscribe('action.data.context.rest', reset);
+            glimpse.pubsub.subscribe('action.data.context.reset', function (topic, payload) { reset(payload); });
         },
         wireDomListeners = function () {
             glimpse.elements.holder.find('.glimpse-clear-ajax').live('click', function () { clear(); return false; });
@@ -1669,7 +1669,7 @@ var glimpseAjaxPlugin = (function ($, glimpse) {
             var panel = glimpse.elements.findPanel('Ajax');
             panel.find('tbody a').live('click', function () { selected($(this)); return false; });
             //panel.find('.glimpse-head-message a').live('click', function() { reset(); return false; });
-            panel.find('.glimpse-head-message a').live('click', function() { glimpse.pubsub.publish('action.data.context.rest'); return false; });
+            panel.find('.glimpse-head-message a').live('click', function() { glimpse.pubsub.publish('action.data.context.reset', 'Ajax'); return false; });
         },
         
         setupData = function () {
@@ -1753,12 +1753,13 @@ var glimpseAjaxPlugin = (function ($, glimpse) {
             glimpse.elements.findPanel('Ajax').html('<div class="glimpse-panel-message">No requests currently detected...</div>'); 
         },
         
-        reset = function () {
+        reset = function (type) {
             var panel = glimpse.elements.findPanel('Ajax');
             panel.find('.glimpse-head-message').fadeOut();
             panel.find('.selected').removeClass('selected');
              
-            glimpse.data.retrieve(currentId);
+            if (type == 'Ajax')
+                glimpse.data.retrieve(currentId);
         },
         
         selected = function (item) {
@@ -1804,7 +1805,7 @@ var glimpseHistoryPlugin = (function ($, glimpse) {
             glimpse.pubsub.subscribe('action.data.applied', setupData);  
             glimpse.pubsub.subscribe('action.plugin.deactive', function (topic, payload) { if (payload == 'History') { deactive(); } }); 
             glimpse.pubsub.subscribe('action.plugin.active', function (topic, payload) {  if (payload == 'History') { active(); } });  
-            glimpse.pubsub.subscribe('action.data.context.rest', reset);
+            glimpse.pubsub.subscribe('action.data.context.reset', function (topic, payload) { reset(payload); });
         },
         wireDomListeners = function () {
             glimpse.elements.holder.find('.glimpse-clear-History').live('click', function () { clear(); return false; });
@@ -1813,7 +1814,7 @@ var glimpseHistoryPlugin = (function ($, glimpse) {
             panel.find('.glimpse-col-main tbody a').live('click', function () { selected($(this)); return false; });
             panel.find('.glimpse-col-side tbody a').live('click', function () { selectedSession($(this).attr('data-clientName')); return false; });
             //panel.find('.glimpse-col-main .glimpse-head-message a').live('click', function() { reset(); return false; });
-            panel.find('.glimpse-col-main .glimpse-head-message a').live('click', function() { glimpse.pubsub.publish('action.data.context.rest'); return false; });
+            panel.find('.glimpse-col-main .glimpse-head-message a').live('click', function() { glimpse.pubsub.publish('action.data.context.reset', 'History'); return false; });
         },
         setupData = function () {
             var payload = glimpse.data.current(),
@@ -1973,14 +1974,15 @@ var glimpseHistoryPlugin = (function ($, glimpse) {
             link.delay(100).fadeIn().parents('tr:first').addClass('selected');
         },
         
-        reset = function () {
+        reset = function (type) {
             var panel = glimpse.elements.findPanel('History'),
                 main = panel.find('.glimpse-col-main');
 
             main.find('.glimpse-head-message').fadeOut();
             main.find('.selected').removeClass('selected');
              
-            glimpse.data.reset();
+            if (type == 'History')
+                glimpse.data.reset();
         }, 
 
         //Main 

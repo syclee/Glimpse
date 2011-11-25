@@ -21,7 +21,7 @@
             complete : function () { elements.title.find('.glimpse-url .loading').fadeOut(); }
         },
         switchContext = function (requestId) { 
-            glimpse.pubsub.publish('action.data.context.rest');
+            glimpse.pubsub.publish('action.data.context.reset', 'Title');
             data.retrieve(requestId, switchContextFunc);
         },
         buildEnvironment = function (requestMetadata) {
