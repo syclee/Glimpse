@@ -60,6 +60,9 @@
     left: 0;
     width: 100%;
     background-color: #fff;
+    -moz-box-shadow: 0 0 5px #888;
+    -webkit-box-shadow: 0 0 5px#888;
+    box-shadow: 0 0 5px #888;
 }
 .glimpse-bar {
     background: #cfcfcf;
