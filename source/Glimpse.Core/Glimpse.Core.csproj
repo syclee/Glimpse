@@ -99,7 +99,7 @@
     <Compile Include="Handlers\ImageHandlerBase.cs" />
     <Compile Include="Handlers\JavascriptData.cs" />
     <Compile Include="Handlers\Pager.cs" />
-    <Compile Include="Plugin\Assist\Extenstions.cs" />
+    <Compile Include="Plugin\Assist\AssistExtensions.cs" />
     <Compile Include="Plugin\Assist\FormattingExtensions.cs" />
     <Compile Include="Plugin\Assist\GlimpseColumn.cs" />
     <Compile Include="Plugin\Assist\GlimpseRow.cs" />
