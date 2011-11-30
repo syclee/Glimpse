@@ -6,7 +6,7 @@ using NUnit.Framework;
 namespace Glimpse.Test.Core.Plugin.Assist
 {
     [TestFixture]
-	public class FormattingExtensionsTest
+	public class GlimpseRowFormattingExtensionsTest
     {
         [Test]
 		public void GlimpseRow_Bold_AppliesBoldToLastColumn()
