@@ -10,8 +10,10 @@ pubsub = (function () {
             pRegistry = {};
             lastUid = -1;
         },
-        publish = function (message, data) {
-            pRegistry[message] = data;
+        publish = function (message, data) { 
+            if (!pRegistry[message])
+                pRegistry[message] = [];
+            pRegistry[message].push(true);
 
             var subscribers = registry[message];
             var throwException = function (e) {
@@ -19,8 +21,10 @@ pubsub = (function () {
                     throw e;
                 };
             }; 
-            for (var i = 0, j = subscribers.length; i < j; i++) { 
-                subscribers[i].func(message, data); 
+            if (subscribers) {
+                for (var i = 0, j = subscribers.length; i < j; i++) { 
+                    subscribers[i].func(message, data); 
+                }
             }
             return true;
         },

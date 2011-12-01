@@ -108,6 +108,16 @@
     <Compile Include="Plumbing\GlimpseResponseFilter.cs" />
     <Compile Include="Plumbing\GlimpseSerializer.cs" />
     <Compile Include="Plumbing\InProcStackMetadataStore.cs" />
+    <Content Include="Scripts\FunctionalTests\glimpseSprite.png" />
+    <Content Include="Scripts\FunctionalTests\Mock\glimpseTest.js" />
+    <Content Include="Scripts\FunctionalTests\Mock\test.glimpse.ajax.ajax.js" />
+    <Content Include="Scripts\FunctionalTests\Mock\test.glimpse.ajax.history.js" />
+    <Content Include="Scripts\FunctionalTests\Mock\test.glimpse.ajax.js" />
+    <Content Include="Scripts\FunctionalTests\Mock\test.glimpse.ajax.pager.js" />
+    <Content Include="Scripts\FunctionalTests\sprite.png" />
+    <Content Include="Scripts\FunctionalTests\test-a.html" />
+    <Content Include="Scripts\FunctionalTests\test-popup.html" />
+    <Content Include="Scripts\FunctionalTests\test.html" />
     <Content Include="Scripts\glimpse.plugin.history.js" />
     <Content Include="Scripts\glimpse.plugin.timeline.core.js" />
     <Content Include="Scripts\glimpse.plugin.timeline.js" />
@@ -178,10 +188,12 @@
     <Compile Include="Warning\Warning.cs" />
     <Content Include="Scripts\glimpse.view.shell.code.css" />
     <Content Include="Scripts\google-code-prettify.js" />
-    <Content Include="Scripts\Test\test.glimpse.ajax.history.js" />
-    <Content Include="Scripts\Test\test.glimpse.ajax.ajax.js" />
-    <Content Include="Scripts\Test\glimpseTest.js" />
-    <Content Include="Scripts\Test\test.glimpse.ajax.pager.js" />
+    <Content Include="Scripts\UnitTests\index.html" />
+    <Content Include="Scripts\UnitTests\Lib\qunit.css" />
+    <Content Include="Scripts\UnitTests\Lib\qunit.js" />
+    <Content Include="Scripts\UnitTests\Unit\mock-glimpse.core.element.js" />
+    <Content Include="Scripts\UnitTests\Unit\glimpse.core.process.js" />
+    <Content Include="Scripts\UnitTests\Unit\mock-glimpse.core.pubsub.js" />
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="glimpseClient.js" />
@@ -194,11 +206,6 @@
     <Content Include="Scripts\glimpse.render.engine.structured.js" />
     <Content Include="Scripts\glimpse.view.metadata.html" />
     <Content Include="Scripts\jquery-1.6.3.min.js" />
-    <Content Include="Scripts\sprite.png" />
-    <Content Include="Scripts\test-a.html" />
-    <Content Include="Scripts\test-popup.html" />
-    <Content Include="Scripts\Test\test.glimpse.ajax.js" />
-    <Content Include="Scripts\test.html" />
     <Content Include="Scripts\glimpse.core.template.js" />
     <Content Include="Scripts\glimpse.view.shell.css" />
     <Content Include="Scripts\glimpse.view.shell.html" />
