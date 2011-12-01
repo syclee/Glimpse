@@ -105,6 +105,7 @@
     <Compile Include="Plugin\Assist\GlimpseColumn.cs" />
     <Compile Include="Plugin\Assist\GlimpseRow.cs" />
     <Compile Include="Plugin\Assist\GlimpseSection.cs" />
+    <Compile Include="Plugin\Assist\FormattingKeywords.cs" />
     <Compile Include="Plugin\Assist\StringFormattingExtensions.cs" />
     <Compile Include="Plugin\Timing.cs" />
     <Compile Include="Plumbing\GlimpseFactory.cs" />

@@ -13,23 +13,87 @@ namespace Glimpse.Test.Core.Plugin.Assist
         {
             var row = Row.Bold();
 
-			Assert.AreEqual(row.Columns.Last().Data, "*Text*");
+			Assert.AreEqual(row.Columns.Last().Data, @"*Text*");
         }
 
 		[Test]
+		public void GlimpseRow_Italic_AppliesItalicToLastColumn()
+		{
+			var row = Row.Italic();
+
+			Assert.AreEqual(row.Columns.Last().Data, @"\Text\");
+		}
+
+    	[Test]
+		public void GlimpseRow_Raw_AppliesRawToLastColumn()
+    	{
+			var row = Row.Raw();
+
+    		Assert.AreEqual(row.Columns.Last().Data, @"!Text!");
+    	}
+
+    	[Test]
+		public void GlimpseRow_Sub_AppliesSubToLastColumn()
+		{
+			var row = Row.Sub();
+
+			Assert.AreEqual(row.Columns.Last().Data, @"|Text|");
+		}
+
+    	[Test]
 		public void GlimpseRow_Underline_AppliesUnderlineToLastColumn()
 		{
 			var row = Row.Underline();
 
-			Assert.AreEqual(row.Columns.Last().Data, "_Text_");
+			Assert.AreEqual(row.Columns.Last().Data, @"_Text_");
 		}
 
 		[Test]
-		public void GlimpseRow_RowOperation_IsInvalidForRowsWithoutColumns()
+		public void GlimpseRow_RowOperations_AreInvalidForRowsWithoutColumns()
 		{
 			var row = new GlimpseRow();
 
 			Assert.Throws<InvalidOperationException>(() => row.Quiet());
+		}
+
+		[Test]
+		public void GlimpseRow_Error_AddsColumnWithError()
+		{
+			var row = Row.Error();
+
+			Assert.AreEqual(row.Columns.Last().Data, "error");
+		}
+
+		[Test]
+		public void GlimpseRow_Fail_AddsColumnWithFail()
+		{
+			var row = Row.Fail();
+
+			Assert.AreEqual(row.Columns.Last().Data, "fail");
+		}
+
+		[Test]
+		public void GlimpseRow_Info_AddsColumnWithInfo()
+		{
+			var row = Row.Info();
+
+			Assert.AreEqual(row.Columns.Last().Data, "info");
+		}
+
+		[Test]
+		public void GlimpseRow_Loading_AddsColumnWithLoading()
+		{
+			var row = Row.Loading();
+
+			Assert.AreEqual(row.Columns.Last().Data, "loading");
+		}
+
+		[Test]
+		public void GlimpseRow_Ms_AddsColumnWithMs()
+		{
+			var row = Row.Ms();
+
+			Assert.AreEqual(row.Columns.Last().Data, "ms");
 		}
 
 		[Test]
