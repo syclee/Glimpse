@@ -10,7 +10,7 @@ using NHibernate.Engine;
 using NHibernate.SqlCommand;
 using NHibernate.SqlTypes;
 
-namespace Glimpse.Nh.Plumbing.Profiler
+namespace Glimpse.NH.Plumbing.Profiler
 {
     public class GlimpseProfileDbDriver<TInnerDriver> : IDriver, IEmbeddedBatcherFactoryProvider, ISqlParameterFormatter
         where TInnerDriver : class, IDriver, new()

@@ -1,6 +1,5 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
+using System.Diagnostics;
 using System.Web;
 using System.Web.Mvc;
 using System.Web.Routing;
@@ -11,7 +10,7 @@ namespace NerdDinner
 	using NHibernate;
 	using NHibernate.Cfg;
 
-	public class MvcApplication : System.Web.HttpApplication
+	public class MvcApplication : HttpApplication
 	{
 		public static ISession CurrentSession
 		{
@@ -52,12 +51,9 @@ namespace NerdDinner
 
 		public MvcApplication()
 		{
-			BeginRequest += (sender, args) => 
-				CurrentSession = SessionFactory.OpenSession();
-			EndRequest += (sender, args) => 
-				CurrentSession.Dispose();
+			BeginRequest += (sender, args) => CurrentSession = SessionFactory.OpenSession();
+			EndRequest += (sender, args) => CurrentSession.Dispose();
 		}
-
 
 		public void RegisterRoutes(RouteCollection routes)
 		{
@@ -68,8 +64,7 @@ namespace NerdDinner
 					"{Id}",
 						new { controller = "Dinners", action = "Details" },
 						new { Id = @"\d+" }
-					);
-
+			);
 
 			routes.MapRoute(
 					"UpcomingDinners",
@@ -87,7 +82,7 @@ namespace NerdDinner
 		void Application_Start()
 		{
 			RegisterRoutes(RouteTable.Routes);
-
+		    Trace.Write(SessionFactory);
 			ViewEngines.Engines.Clear();
 			ViewEngines.Engines.Add(new MobileCapableWebFormViewEngine());
 		}
