@@ -1,4 +1,4 @@
-﻿process = function () {
+﻿hprocess = function () {
     var //Support 
         findElements = function () { 
             elements.scope = scope;

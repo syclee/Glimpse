@@ -13,13 +13,15 @@
             glimpse.pubsub.subscribe('action.data.applied', contextChanged);
             glimpse.pubsub.subscribe('action.plugin.deactive', function (topic, payload) { if (payload == 'Ajax') { deactive(); } }); 
             glimpse.pubsub.subscribe('action.plugin.active', function (topic, payload) {  if (payload == 'Ajax') { active(); } }); 
+            glimpse.pubsub.subscribe('action.data.context.reset', function (topic, payload) { reset(payload); });
         },
         wireDomListeners = function () {
             glimpse.elements.holder.find('.glimpse-clear-ajax').live('click', function () { clear(); return false; });
             
             var panel = glimpse.elements.findPanel('Ajax');
             panel.find('tbody a').live('click', function () { selected($(this)); return false; });
-            panel.find('.glimpse-head-message a').live('click', function() { reset(); return false; });
+            //panel.find('.glimpse-head-message a').live('click', function() { reset(); return false; });
+            panel.find('.glimpse-head-message a').live('click', function() { glimpse.pubsub.publish('action.data.context.reset', 'Ajax'); return false; });
         },
         
         setupData = function () {
@@ -103,12 +105,13 @@
             glimpse.elements.findPanel('Ajax').html('<div class="glimpse-panel-message">No requests currently detected...</div>'); 
         },
         
-        reset = function () {
+        reset = function (type) {
             var panel = glimpse.elements.findPanel('Ajax');
             panel.find('.glimpse-head-message').fadeOut();
             panel.find('.selected').removeClass('selected');
              
-            glimpse.data.retrieve(currentId);
+            if (type == 'Ajax')
+                glimpse.data.retrieve(currentId);
         },
         
         selected = function (item) {

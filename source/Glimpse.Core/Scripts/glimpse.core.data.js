@@ -1,12 +1,11 @@
 ﻿data = (function () {
     var //Support
-        inner = {}, 
+        inner = {},  
         base = {},
     
         //Main 
         update = function (data) {
-            inner = data; 
-
+            inner = data;  
             pubsub.publish('action.data.update');
         },
         reset = function () {
@@ -40,7 +39,7 @@
 
         current = function () {
             return inner;
-        },
+        }, 
         currentMetadata = function () {
             return inner.metadata;
         },
@@ -53,7 +52,7 @@
     init(); 
     
     return { 
-        current : current,
+        current : current, 
         currentMetadata : currentMetadata,
         update : update,
         retrieve : retrieve,

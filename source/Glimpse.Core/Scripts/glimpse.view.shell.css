@@ -60,6 +60,9 @@
     left: 0;
     width: 100%;
     background-color: #fff;
+    -moz-box-shadow: 0 0 5px #888;
+    -webkit-box-shadow: 0 0 5px#888;
+    box-shadow: 0 0 5px #888;
 }
 .glimpse-bar {
     background: #cfcfcf;
@@ -98,6 +101,12 @@
 .glimpse-title .glimpse-snapshot-type {
     display: inline-block;
     height: 20px;
+}
+.glimpse-title .glimpse-snapshot-path {
+    font-weight:normal;
+}
+.glimpse-title .glimpse-snapshot-path a {
+    cursor: pointer;
 }
 .glimpse-title .glimpse-enviro {
     padding-left: 10px;

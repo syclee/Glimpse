@@ -53,15 +53,15 @@
             { type : 'Routes', method : 'Get', duration : 1234, browser : 'Chrome 16.0', clientName : '', requestTime : '2011/11/09 12:29:14', requestId : 'ajax6', parentId : '1234', isAjax : true, url : '/Product'}
         ],
         requests2 = [ 
-            { type : 'Session', method : 'Post', duration : 213, browser : 'iPhone 1', clientName : 'iPhone', requestTime : '2011/11/09 12:00:12', requestId : 'ajax0', isAjax : true, url : '/Product'},
-            { type : 'Server', method : 'Post', duration : 123, browser : 'iPhone 1', clientName : 'iPhone', requestTime : '2011/11/09 12:10:34', requestId : 'ajax1', isAjax : false, url : '/Product'},
-            { type : 'Request', method : 'Post', duration : 234, browser : 'iPhone 1', clientName : 'iPhone', requestTime : '2011/11/09 12:12:23', requestId : 'ajax2', isAjax : false, url : '/Product/230'},
-            { type : 'Trace', method : 'Post', duration : 342, browser : 'iPhone 1', clientName : 'iPhone', requestTime : '2011/11/09 12:17:52', requestId : 'ajax3', isAjax : false, url : '/Product/Add'}
+            { type : 'Session', method : 'Post', duration : 213, browser : 'iPhone 1', clientName : 'iPhone', requestTime : '2011/11/09 12:00:12', requestId : '1ajax0', isAjax : true, url : '/Product'},
+            { type : 'Server', method : 'Post', duration : 123, browser : 'iPhone 1', clientName : 'iPhone', requestTime : '2011/11/09 12:10:34', requestId : '1ajax1', isAjax : false, url : '/Product'},
+            { type : 'Request', method : 'Post', duration : 234, browser : 'iPhone 1', clientName : 'iPhone', requestTime : '2011/11/09 12:12:23', requestId : '1ajax2', isAjax : false, url : '/Product/230'},
+            { type : 'Trace', method : 'Post', duration : 342, browser : 'iPhone 1', clientName : 'iPhone', requestTime : '2011/11/09 12:17:52', requestId : '1ajax3', isAjax : false, url : '/Product/Add'}
         ],
         requests3 = [ 
-            { type : 'Environment', method : 'Get', duration : 211, browser : 'IE6', clientName : 'Remote', requestTime : '2011/11/24 12:00:35', requestId : 'ajax4', isAjax : false, url : '/Product/Results'},
-            { type : 'SQL', method : 'Get', duration : 242, browser : 'IE6', clientName : 'Remote', requestTime : '2011/11/09 12:27:23', requestId : 'ajax5', isAjax : false, url : '/Product/List'},
-            { type : 'Routes', method : 'Get', duration : 1234, browser : 'IE6', clientName : 'Remote', requestTime : '2011/11/09 12:29:14', requestId : 'ajax6', isAjax : false, url : '/Product'}
+            { type : 'Environment', method : 'Get', duration : 211, browser : 'IE6', clientName : 'Remote', requestTime : '2011/11/24 12:00:35', requestId : '2ajax4', isAjax : false, url : '/Product/Results'},
+            { type : 'SQL', method : 'Get', duration : 242, browser : 'IE6', clientName : 'Remote', requestTime : '2011/11/09 12:27:23', requestId : '2ajax5', isAjax : false, url : '/Product/List'},
+            { type : 'Routes', method : 'Get', duration : 1234, browser : 'IE6', clientName : 'Remote', requestTime : '2011/11/09 12:29:14', requestId : '2ajax6', isAjax : false, url : '/Product'}
         ],
         requests = {
             '' : requests1,
@@ -99,9 +99,12 @@
                         param.complete();  
 
                     if (param.data.ClientRequestID != 'PRG') {
-                        for (var i = 0; i < requests1.length ; i++) {
-                            if (requests1[i].requestId == param.data.ClientRequestID)
-                                response = requests1[i];
+                        for (var name in requests) {
+                            var nameValue = requests[name];
+                            for (var i = 0; i < nameValue.length ; i++) {
+                                if (nameValue[i].requestId == param.data.ClientRequestID)
+                                    response = nameValue[i];
+                            }
                         }
 
                         if (response) {
