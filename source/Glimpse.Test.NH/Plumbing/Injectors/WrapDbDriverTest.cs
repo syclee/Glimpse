@@ -28,7 +28,7 @@ namespace Glimpse.Test.NH.Plumbing.Injectors
             }
         }
 
-        [Test, Ignore("Work in progress, need to make the GlimpseProfileDbDriver work for older version of NH as well")]
+        [Test, Ignore("Work in progress")]
         public void WrapDbDriver_Inject_does_not_throw_for_NH_310()
         {
             using (NHibernate.Version(NHibernateVersion.NH_310))

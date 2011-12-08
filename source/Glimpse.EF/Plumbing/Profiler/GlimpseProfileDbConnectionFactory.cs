@@ -6,7 +6,7 @@ using System.Reflection;
 using Glimpse.Ado.Plumbing;
 using Glimpse.Ado.Plumbing.Profiler;
 
-namespace Glimpse.Ef.Plumbing.Profiler
+namespace Glimpse.EF.Plumbing.Profiler
 {
     internal class GlimpseProfileDbConnectionFactory : IDbConnectionFactory
     { 

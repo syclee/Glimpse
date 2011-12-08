@@ -25,21 +25,33 @@ namespace Glimpse.NH.Plumbing.Injectors
         public void Inject()
         {
             var sessionFactoryObjectFactoryType = Type.GetType("NHibernate.Impl.SessionFactoryObjectFactory, NHibernate", false, true);
+            if (sessionFactoryObjectFactoryType == null)
+                return;
+            
             var intancesField = sessionFactoryObjectFactoryType.GetField("Instances", BindingFlags.IgnoreCase | BindingFlags.DeclaredOnly | BindingFlags.NonPublic | BindingFlags.Static);
             if (intancesField == null)
                 return;
 
             var sessionFactoryImplType = Type.GetType("NHibernate.Impl.SessionFactoryImpl, NHibernate", false, true);
+            if (sessionFactoryImplType == null)
+                return;
+
             var settingsField = sessionFactoryImplType.GetField("Settings", BindingFlags.IgnoreCase | BindingFlags.DeclaredOnly | BindingFlags.NonPublic | BindingFlags.Instance);
             if (settingsField == null)
                 return;
 
             var settingsType = Type.GetType("NHibernate.Cfg.Settings, NHibernate", false, true);
+            if (settingsType == null)
+                return;
+            
             var connectionProviderField = settingsType.GetProperty("ConnectionProvider", BindingFlags.IgnoreCase | BindingFlags.DeclaredOnly | BindingFlags.Public | BindingFlags.Instance);
             if (connectionProviderField == null)
                 return;
 
             var connectionProviderType = Type.GetType("NHibernate.Connection.ConnectionProvider, NHibernate", false, true);
+            if (connectionProviderType == null)
+                return;
+
             var driverField = connectionProviderType.GetField("Driver", BindingFlags.IgnoreCase | BindingFlags.DeclaredOnly | BindingFlags.NonPublic | BindingFlags.Instance);
             if (driverField == null)
                 return;
@@ -51,12 +63,14 @@ namespace Glimpse.NH.Plumbing.Injectors
                 var settings = settingsField.GetValue(intance.Value);
                 var connectionProvider = connectionProviderField.GetValue(settings, BindingFlags.IgnoreCase | BindingFlags.DeclaredOnly | BindingFlags.Public | BindingFlags.Instance, null, null, null);
                 var driver = driverField.GetValue(connectionProvider);
+                var driverVersion = sessionFactoryObjectFactoryType.Assembly.GetName().Version;
+                var driverVersionNumber = string.Format("{0}{1}{2}", driverVersion.Major, driverVersion.Minor, driverVersion.Build);
 
                 // Compile the profiled driver code
-                var profileDriverTypeCode = GetEmbeddedResource(GetType().Assembly, "Glimpse.NH.Plumbing.Profiler.GlimpseProfileDbDriver.cs");
+                var profileDriverTypeCode = GetEmbeddedResource(GetType().Assembly, string.Format("Glimpse.NH.Plumbing.Profiler.GlimpseProfileDbDriverNh{0}.cs", driverVersionNumber));
                 var profileDriverTypeAssembliesToReference = new[] { driver.GetType().Assembly, typeof(DbConnection).Assembly, typeof(TypeConverter).Assembly, typeof(ProviderStats).Assembly };
                 var profileDriverTypeGeneratedAssembly = CreateAssembly(profileDriverTypeCode, profileDriverTypeAssembliesToReference);
-                var profileDriverTypeGeneratedType = profileDriverTypeGeneratedAssembly.GetType("Glimpse.NH.Plumbing.Profiler.GlimpseProfileDbDriver`1");
+                var profileDriverTypeGeneratedType = profileDriverTypeGeneratedAssembly.GetType(string.Format("Glimpse.NH.Plumbing.Profiler.GlimpseProfileDbDriverNh{0}`1", driverVersionNumber));
 
                 // Wrap the driver into the profiled driver
                 var profiledDriverType = profileDriverTypeGeneratedType.MakeGenericType(driver.GetType());

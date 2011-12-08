@@ -1,6 +1,8 @@
 ﻿using System;
 using System.Diagnostics;
 using System.IO;
+using System.Linq;
+using System.Reflection;
 
 namespace Glimpse.Test.NH.DataContext
 {
@@ -11,10 +13,12 @@ namespace Glimpse.Test.NH.DataContext
     public class NHibernateContext : INHibernateContext
     {
         private readonly NHibernateVersion _version;
+        private AppDomain _appDomain;
 
         public NHibernateContext(NHibernateVersion version)
         {
             _version = version;
+
             LoadAssembliesForVersion();
             BuildSessionFactoryForVersion();
         }
@@ -26,18 +30,23 @@ namespace Glimpse.Test.NH.DataContext
 
         private void LoadAssembliesForVersion()
         {
+            _appDomain = AppDomain.CreateDomain("NHibernateContext");
+
             var nhibernatePath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, string.Format(@"DataContext\{0}", _version));
             var assembliesToLoad = Directory.GetFiles(nhibernatePath, "*.dll");
             foreach (var assemblyFile in assembliesToLoad)
             {
-                var assemblyFileToCreate = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, new FileInfo(assemblyFile).Name);
+                var assemblyFileName = new FileInfo(assemblyFile).Name;
+                var assemblyFileToCreate = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, assemblyFileName);
                 File.Copy(assemblyFile, assemblyFileToCreate, true);
+                _appDomain.Load(AssemblyName.GetAssemblyName(assemblyFileToCreate));
             }
         }
 
         private void BuildSessionFactoryForVersion()
         {
-            var configurationType = Type.GetType("NHibernate.Cfg.Configuration, NHibernate", true, true);
+            var nhibernateAssembly = _appDomain.GetAssemblies().Single(a => a.GetName().Name == "NHibernate");
+            var configurationType = nhibernateAssembly.GetType("NHibernate.Cfg.Configuration", true, true);
             var configuration = configurationType.GetConstructor(new Type[] { }).Invoke(null);
             var configureMethodInfo = configurationType.GetMethod("Configure", new[] { typeof(string) });
             var buildSessionFactoryMethodInfo = configurationType.GetMethod("BuildSessionFactory", new Type[] { });
@@ -49,11 +58,14 @@ namespace Glimpse.Test.NH.DataContext
 
         private void UnloadAssembliesForVersion()
         {
+            AppDomain.Unload(_appDomain);
+
             var nhibernatePath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, string.Format(@"DataContext\{0}", _version));
             var assembliesToLoad = Directory.GetFiles(nhibernatePath, "*.dll");
             foreach (var assemblyFile in assembliesToLoad)
             {
-                var assemblyFileToDelete = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, new FileInfo(assemblyFile).Name);
+                var assemblyFileName = new FileInfo(assemblyFile).Name;
+                var assemblyFileToDelete = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, assemblyFileName);
                 File.Delete(assemblyFileToDelete);
             }
         }
