@@ -36,5 +36,50 @@ namespace Glimpse.Test.NH.Plumbing.Injectors
                 _sut.Inject();
             }
         }
+
+        [Test, Ignore("Work in progress")]
+        public void WrapDbDriver_Inject_does_not_throw_for_NH_300()
+        {
+            using (NHibernate.Version(NHibernateVersion.NH_300))
+            {
+                _sut.Inject();
+            }
+        }
+
+        [Test, Ignore("Work in progress")]
+        public void WrapDbDriver_Inject_does_not_throw_for_NH_212()
+        {
+            using (NHibernate.Version(NHibernateVersion.NH_212))
+            {
+                _sut.Inject();
+            }
+        }
+
+        [Test, Ignore("Work in progress")]
+        public void WrapDbDriver_Inject_does_not_throw_for_NH_210()
+        {
+            using (NHibernate.Version(NHibernateVersion.NH_210))
+            {
+                _sut.Inject();
+            }
+        }
+
+        [Test, Ignore("Work in progress")]
+        public void WrapDbDriver_Inject_does_not_throw_for_NH_201()
+        {
+            using (NHibernate.Version(NHibernateVersion.NH_201))
+            {
+                _sut.Inject();
+            }
+        }
+
+        [Test, Ignore("Work in progress")]
+        public void WrapDbDriver_Inject_does_not_throw_for_NH_121()
+        {
+            using (NHibernate.Version(NHibernateVersion.NH_121))
+            {
+                _sut.Inject();
+            }
+        }
     }
 }
