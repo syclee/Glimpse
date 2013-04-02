@@ -6,8 +6,8 @@ using System.Web.Http;
 using System.Web.Mvc;
 using System.Web.Optimization;
 using System.Web.Routing;
-using Glimpse.Ado;
-using Glimpse.EF;
+//using Glimpse.Ado;
+//using Glimpse.EF;
 
 namespace MvcMusicStore
 {
@@ -18,8 +18,8 @@ namespace MvcMusicStore
     {
         protected void Application_Start()
         {
-            Glimpse.Settings.Initialize.Ado();
-            Glimpse.Settings.Initialize.EF();
+            //Glimpse.Settings.Initialize.Ado();
+            //Glimpse.Settings.Initialize.EF();
 
             AreaRegistration.RegisterAllAreas();
 

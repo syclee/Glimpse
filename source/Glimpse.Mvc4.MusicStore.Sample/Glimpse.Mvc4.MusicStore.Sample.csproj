@@ -83,8 +83,9 @@
     <Reference Include="System.ComponentModel.DataAnnotations" />
     <Reference Include="System.Core" />
     <Reference Include="System.Data.DataSetExtensions" />
-    <Reference Include="System.Web.Optimization">
-      <HintPath>..\..\packages\Microsoft.AspNet.Web.Optimization.1.0.0\lib\net40\System.Web.Optimization.dll</HintPath>
+    <Reference Include="System.Web.Optimization, Version=1.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\packages\Microsoft.AspNet.Web.Optimization.1.1.0-Beta1\lib\net40\System.Web.Optimization.dll</HintPath>
     </Reference>
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Web" />
@@ -212,8 +213,6 @@
     <Content Include="Scripts\jquery.validate.min.js" />
     <Content Include="Scripts\jquery.validate.unobtrusive.js" />
     <Content Include="Scripts\jquery.validate.unobtrusive.min.js" />
-    <Content Include="Scripts\knockout-2.1.0.debug.js" />
-    <Content Include="Scripts\knockout-2.1.0.js" />
     <Content Include="Scripts\modernizr-2.5.3.js" />
     <Content Include="Web.config">
       <SubType>Designer</SubType>
@@ -277,10 +276,6 @@
     <Content Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\Glimpse.Ado.Net45\Glimpse.Ado.Net45.csproj">
-      <Project>{1594add8-62f8-417b-bd69-131afbbf51bc}</Project>
-      <Name>Glimpse.Ado.Net45</Name>
-    </ProjectReference>
     <ProjectReference Include="..\Glimpse.AspNet.Net45\Glimpse.AspNet.Net45.csproj">
       <Project>{dd576747-cd93-43f0-8648-6cdc5cd9c548}</Project>
       <Name>Glimpse.AspNet.Net45</Name>
@@ -289,13 +284,13 @@
       <Project>{2cb2400f-bc66-4074-b6e4-177a6f78163e}</Project>
       <Name>Glimpse.Core.Net45</Name>
     </ProjectReference>
-    <ProjectReference Include="..\Glimpse.EF6.Net45\Glimpse.EF6.Net45.csproj">
-      <Project>{90d8f914-7271-466e-8a87-218176c39719}</Project>
-      <Name>Glimpse.EF6.Net45</Name>
-    </ProjectReference>
     <ProjectReference Include="..\Glimpse.Mvc\Glimpse.Mvc.csproj">
       <Project>{0a68b072-7918-45ac-bb78-f05789d0bf44}</Project>
       <Name>Glimpse.Mvc</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Glimpse.WebOptimization\Glimpse.WebOptimization.csproj">
+      <Project>{a612c854-08d4-43cb-b679-4d3c08612d7b}</Project>
+      <Name>Glimpse.WebOptimization</Name>
     </ProjectReference>
   </ItemGroup>
   <PropertyGroup>
