@@ -21,7 +21,20 @@ namespace Glimpse.Core.Support
 
             foreach (var assembly in AppDomain.CurrentDomain.GetAssemblies())
             {
-                var nugetPackage = assembly.GetCustomAttributes(typeof(NuGetPackageAttribute), false).Cast<NuGetPackageAttribute>().SingleOrDefault();
+                NuGetPackageAttribute nugetPackage;
+
+                try
+                {
+                    nugetPackage =
+                        assembly.GetCustomAttributes(typeof (NuGetPackageAttribute), false)
+                                .Cast<NuGetPackageAttribute>()
+                                .SingleOrDefault();
+                }
+                catch (Exception)
+                {
+                    continue;
+                }
+                
                 if (nugetPackage == null)
                 {
                     continue;
@@ -48,15 +61,31 @@ namespace Glimpse.Core.Support
 
             foreach (var assembly in AppDomain.CurrentDomain.GetAssemblies())
             {
-                var nugetPackage = assembly.GetCustomAttributes(typeof(NuGetPackageAttribute), false).Cast<NuGetPackageAttribute>().SingleOrDefault();
+                NuGetPackageAttribute nugetPackage;
+
+                try
+                {
+                    nugetPackage = assembly.GetCustomAttributes(typeof(NuGetPackageAttribute), false).Cast<NuGetPackageAttribute>().SingleOrDefault();                    
+                }
+                catch (Exception)
+                {
+                    continue;
+                }
+
                 if (nugetPackage == null)
                 {
                     continue;
                 }
 
-                nugetPackage.Initialize(assembly);
+                try
+                {
+                    nugetPackage.Initialize(assembly);
 
-                packages.Add(nugetPackage);
+                    packages.Add(nugetPackage);
+                }
+                catch
+                {
+                }
             }
 
             return packages;
